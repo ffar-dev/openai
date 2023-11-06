@@ -68,6 +68,7 @@ interface class OpenAIImages implements OpenAIImagesBase {
     OpenAIImageSize? size,
     OpenAIImageResponseFormat? responseFormat,
     String? user,
+    String? model,
     http.Client? client,
   }) async {
     final String generations = "/generations";
@@ -81,6 +82,7 @@ interface class OpenAIImages implements OpenAIImagesBase {
         if (size != null) "size": size.value,
         if (responseFormat != null) "response_format": responseFormat.value,
         if (user != null) "user": user,
+        if (model != null) "model": model,
       },
       client: client,
     );
@@ -195,8 +197,7 @@ interface class OpenAIImages implements OpenAIImagesBase {
   }) async {
     final String variations = "/variations";
 
-    return await OpenAINetworkingClient.imageVariationForm<
-        OpenAIImageVariationModel>(
+    return await OpenAINetworkingClient.imageVariationForm<OpenAIImageVariationModel>(
       image: image,
       body: {
         if (n != null) "n": n.toString(),
